@@ -1,5 +1,5 @@
 import React from 'react';
-import { SafeAreaView, View, Text, StyleSheet, Image, Dimensions } from 'react-native';
+import { SafeAreaView, View, Text, StyleSheet, Image, Dimensions, TouchableOpacity, Linking } from 'react-native';
 
 const RestaurantDetail = (props) => {
     const { selectedRestaurant } = props.route.params;
@@ -32,7 +32,11 @@ const RestaurantDetail = (props) => {
                 />
 
                 <View style={styles.infoContainer}>
-                    <Text style={styles.infoText}>{selectedRestaurant.address}</Text>
+                    <Text style={styles.infoText}>{selectedRestaurant.country}</Text>
+                </View>
+
+                <View style={styles.infoContainer}>
+                    <Text style={styles.infoText}>{selectedRestaurant.city}</Text>
                 </View>
 
                 <View style={styles.infoContainer}>
@@ -40,8 +44,19 @@ const RestaurantDetail = (props) => {
                 </View>
 
                 <View style={styles.infoContainer}>
-                    <Text style={styles.infoText}>{selectedRestaurant.postal_code}</Text>
+                    <Text style={styles.infoText}>{selectedRestaurant.address}</Text>
                 </View>
+
+                <View style={styles.infoContainer}>
+                    <Text style={styles.infoText}>☎️ {selectedRestaurant.phone}</Text>
+                </View>
+
+                <TouchableOpacity 
+                    style={styles.reserveContainer} 
+                    onPress={ ()=> Linking.openURL(selectedRestaurant.mobile_reserve_url) }
+                >
+                    <Text style={styles.text}>Go to Reserve</Text>
+                </TouchableOpacity>
             </View>
         </SafeAreaView>
     )
@@ -59,5 +74,16 @@ const styles = StyleSheet.create({
         margin: 5,
         borderRadius: 5
     },
-    infoText: { color: 'white', fontWeight: 'bold' }
+    infoText: { color: 'white', fontWeight: 'bold' },
+    reserveContainer: {},
+    text:{color: 'white', fontWeight: 'bold', textAlign: "center" },
+    reserveContainer: {
+        backgroundColor: 'tomato',
+        padding: 10,
+        margin: 5,
+        borderRadius: 5,
+        width: "40%",
+        alignSelf: "center"
+    },
+
 })
